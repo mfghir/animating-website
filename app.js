@@ -47,7 +47,7 @@ function animateSlides() {
     pageTl.fromTo(slide, { opacity: 1, scale: 1 }, { opacity: 0, scale: 0.5 });
     pageTl.fromTo(nextSlide, { y: "50%" }, { y: "0%" }, "-=0.5");
 
-    
+
     //Create new scene
     pageScene = new ScrollMagic.Scene({
       triggerElement: slide,
@@ -66,4 +66,36 @@ function animateSlides() {
   });
 }
 
+
+
+const mouse = document.querySelector(".cursor");
+const mouseTxt = mouse.querySelector("span");
+const burger = document.querySelector(".burger");
+
+function cursor(e) {
+  mouse.style.top = e.pageY + "px";
+  mouse.style.left = e.pageX + "px";
+}
+
+function activeCursor(e) {
+    const item = e.target;
+
+    if (item.id === "logo" || item.classList.contains("burger")) {
+      mouse.classList.add("nav-active");
+    } else {
+      mouse.classList.remove("nav-active");
+    }
+
+    if (item.classList.contains("explore")) {
+      mouse.classList.add("explore-active");
+      gsap.to(".title-swipe", 1, { y: "0%" });
+      mouseTxt.innerText = "Tap";
+    } else {
+      mouse.classList.remove("explore-active");
+      mouseTxt.innerText = "";
+      gsap.to(".title-swipe", 1, { y: "100%" });
+    }
+  }
+
 animateSlides();
+window.addEventListener("mouseover", activeCursor);
