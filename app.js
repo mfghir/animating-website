@@ -11,7 +11,6 @@ function animateSlides() {
 
   //Loop over each sllide
   sliders.forEach((slide, index, slides) => {
-
     const revealImg = slide.querySelector(".reveal-img");
     const img = slide.querySelector("img");
     const revealText = slide.querySelector(".reveal-text");
@@ -27,7 +26,19 @@ function animateSlides() {
     slideTl.fromTo(nav, { y: "-100%" }, { y: "0%" }, "-=0.5");
   });
 
-
+  //Create Scene
+  slideScene = new ScrollMagic.Scene({
+    triggerElement: slide,
+    triggerHook: 0.25,
+    reverse: false,
+  })
+    .setTween(slideTl)
+    // .addIndicators({
+    //   colorStart: "white",
+    //   colorTrigger: "white",
+    //   name: "slide"
+    // })
+    .addTo(controller);
 }
 
 animateSlides();
