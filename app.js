@@ -16,7 +16,6 @@ function animateSlides() {
     const img = slide.querySelector("img");
     const revealText = slide.querySelector(".reveal-text");
 
-
     //GSAP
     const slideTl = gsap.timeline({
       defaults: { duration: 1, ease: "power2.inOut" },
@@ -24,7 +23,6 @@ function animateSlides() {
     slideTl.fromTo(revealImg, { x: "0%" }, { x: "100%" });
     slideTl.fromTo(img, { scale: 2 }, { scale: 1 }, "-=1");
     slideTl.fromTo(revealText, { x: "0%" }, { x: "100%" }, "-=0.75");
-
 
     //Create Scene
     slideScene = new ScrollMagic.Scene({
@@ -47,7 +45,6 @@ function animateSlides() {
     pageTl.fromTo(slide, { opacity: 1, scale: 1 }, { opacity: 0, scale: 0.5 });
     pageTl.fromTo(nextSlide, { y: "50%" }, { y: "0%" }, "-=0.5");
 
-
     //Create new scene
     pageScene = new ScrollMagic.Scene({
       triggerElement: slide,
@@ -66,8 +63,6 @@ function animateSlides() {
   });
 }
 
-
-
 const mouse = document.querySelector(".cursor");
 const mouseTxt = mouse.querySelector("span");
 const burger = document.querySelector(".burger");
@@ -78,24 +73,25 @@ function cursor(e) {
 }
 
 function activeCursor(e) {
-    const item = e.target;
+  const item = e.target;
 
-    if (item.id === "logo" || item.classList.contains("burger")) {
-      mouse.classList.add("nav-active");
-    } else {
-      mouse.classList.remove("nav-active");
-    }
-
-    if (item.classList.contains("explore")) {
-      mouse.classList.add("explore-active");
-      gsap.to(".title-swipe", 1, { y: "0%" });
-      mouseTxt.innerText = "Tap";
-    } else {
-      mouse.classList.remove("explore-active");
-      mouseTxt.innerText = "";
-      gsap.to(".title-swipe", 1, { y: "100%" });
-    }
+  if (item.id === "logo" || item.classList.contains("burger")) {
+    mouse.classList.add("nav-active");
+  } else {
+    mouse.classList.remove("nav-active");
   }
 
-animateSlides();
+  if (item.classList.contains("explore")) {
+    mouse.classList.add("explore-active");
+    gsap.to(".title-swipe", 1, { y: "0%" });
+    mouseTxt.innerText = "Tap";
+  } else {
+    mouse.classList.remove("explore-active");
+    mouseTxt.innerText = "";
+    gsap.to(".title-swipe", 1, { y: "100%" });
+  }
+}
+
+window.addEventListener("mousemove", cursor);
 window.addEventListener("mouseover", activeCursor);
+animateSlides();
